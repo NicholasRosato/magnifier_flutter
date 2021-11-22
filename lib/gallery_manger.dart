@@ -5,21 +5,15 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
-import 'package:flutter_app/constants/constants.dart' as Constants;
-import 'dart:convert';
-import 'dart:typed_data';
+import 'package:flutter_app/constants/constants.dart' as constants;
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
-
 
 class GalleryManager {
   final resultNotifier = ValueNotifier<RequestState>(RequestInitial());
 
   Future<void> makeGetRequest() async {
     resultNotifier.value = RequestLoadInProgress();
-    final response = await get(Uri.parse(Constants.FLASK_URL + Constants.GET_IMAGE));
+    final response = await get(Uri.parse(constants.FLASK_URL + constants.GET_IMAGE));
     _handleResponse(response);
   }
 
