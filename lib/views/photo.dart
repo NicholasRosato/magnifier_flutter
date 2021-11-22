@@ -22,6 +22,7 @@ class PhotoPage extends StatelessWidget {
       body: Column(
           children: <Widget>[
             SizedBox(height: 20),
+
             ValueListenableBuilder<RequestState>(
               valueListenable: stateManager.resultNotifier,
               builder: (context, requestState, child) {
@@ -40,7 +41,11 @@ class PhotoPage extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () => stateManager.makeGetRequest(),
-                child: const Text("Get Picture")
+                child: const Text("Get Picture From Magnifier")
+            ),
+            ElevatedButton(
+                onPressed: () => stateManager.makeGetRequest(),
+                child: const Text("Get Picture From Device")
             ),
             ElevatedButton(
               child: const Text("Return"),
