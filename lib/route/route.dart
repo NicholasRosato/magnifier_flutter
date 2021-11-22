@@ -17,7 +17,7 @@ void login() {}
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
     case photoPage:
-      return MaterialPageRoute(builder: (context) => const PhotoPage());
+      return MaterialPageRoute(builder: (context) => PhotoPage());
     case homePage:
       return MaterialPageRoute(builder: (context) => const HomePage());
     default:

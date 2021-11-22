@@ -5,31 +5,48 @@
 
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:flutter_app/gallery_manger.dart';
+import 'package:flutter_app/constants/constants.dart' as Constants;
+import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PhotoPage extends StatelessWidget {
-  const PhotoPage({Key? key}) : super(key: key);
+  final stateManager = GalleryManager();
 
   @override
   Widget build(BuildContext context) {
-    // code for the login page layout
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gallery View'),
       ),
       body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Center(
-              child: PhotoView(
-                  imageProvider: const AssetImage("assets/magnifier_stock_img.png")
-              )
+          children: <Widget>[
+            SizedBox(height: 20),
+            ValueListenableBuilder<RequestState>(
+              valueListenable: stateManager.resultNotifier,
+              builder: (context, requestState, child) {
+                if (requestState is RequestLoadInProgress) {
+                  return CircularProgressIndicator();
+                } else if (requestState is RequestLoadSuccess) {
+                  return Expanded(
+                    child: SingleChildScrollView(
+                      child: requestState.img
+                    )
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
-          ),
-          ElevatedButton(
-            child: const Text("Return"),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
+            ElevatedButton(
+                onPressed: () => stateManager.makeGetRequest(),
+                child: const Text("Get Picture")
+            ),
+            ElevatedButton(
+              child: const Text("Return"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
       ),
     );
   }
