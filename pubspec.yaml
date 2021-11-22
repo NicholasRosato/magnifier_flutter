@@ -39,6 +39,10 @@ dependencies:
   http: ^0.13.4
   convert: ^3.0.1
   cached_network_image: ^3.1.0+1
+  image_picker: ^0.8.4+4
+  image_picker_for_web: ^2.1.4
+  io: ^1.0.3
+  image_picker_web: ^2.0.3+1
 
 dev_dependencies:
   flutter_test:

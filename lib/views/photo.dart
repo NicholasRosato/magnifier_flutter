@@ -30,7 +30,14 @@ class PhotoPage extends StatelessWidget {
                     child: requestState.img
                   )
                 );
+              } else if (requestState is RequestImageFromGallery) {
+                  return Expanded(
+                    child: SingleChildScrollView(
+                      child: requestState.img
+                    )
+                  );
               } else {
+                // TODO: make this a stock image
                 return Container();
               }
             },
@@ -40,7 +47,7 @@ class PhotoPage extends StatelessWidget {
               child: const Text("Get Picture From Magnifier")
           ),
           ElevatedButton(
-              onPressed: () => stateManager.makeGetRequest(),
+              onPressed: () => stateManager.showPhotoLibrary(),
               child: const Text("Get Picture From Device")
           ),
           ElevatedButton(
