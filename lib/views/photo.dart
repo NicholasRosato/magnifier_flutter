@@ -4,11 +4,8 @@
 // last updated 11/16/2021
 
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:flutter_app/gallery_manger.dart';
-import 'package:flutter_app/constants/constants.dart' as Constants;
 import 'package:flutter/widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class PhotoPage extends StatelessWidget {
   final stateManager = GalleryManager();
@@ -21,12 +18,12 @@ class PhotoPage extends StatelessWidget {
       ),
       body: Column(
           children: <Widget>[
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ValueListenableBuilder<RequestState>(
               valueListenable: stateManager.resultNotifier,
               builder: (context, requestState, child) {
                 if (requestState is RequestLoadInProgress) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (requestState is RequestLoadSuccess) {
                   return Expanded(
                     child: SingleChildScrollView(

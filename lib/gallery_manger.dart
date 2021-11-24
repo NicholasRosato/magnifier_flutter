@@ -6,14 +6,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:flutter_app/constants/constants.dart' as Constants;
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 
-
+  
 class GalleryManager {
   final resultNotifier = ValueNotifier<RequestState>(RequestInitial());
 
