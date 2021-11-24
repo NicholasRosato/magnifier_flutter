@@ -17,33 +17,44 @@ class PhotoPage extends StatelessWidget {
         title: const Text('Gallery View'),
       ),
       body: Column(
-          children: <Widget>[
-            const SizedBox(height: 20),
-            ValueListenableBuilder<RequestState>(
-              valueListenable: stateManager.resultNotifier,
-              builder: (context, requestState, child) {
-                if (requestState is RequestLoadInProgress) {
-                  return const CircularProgressIndicator();
-                } else if (requestState is RequestLoadSuccess) {
+        children: <Widget>[
+          const SizedBox(height: 20),
+          ValueListenableBuilder<RequestState>(
+            valueListenable: stateManager.resultNotifier,
+            builder: (context, requestState, child) {
+              if (requestState is RequestLoadInProgress) {
+                return const CircularProgressIndicator();
+              } else if (requestState is RequestLoadSuccess) {
+                return Expanded(
+                  child: SingleChildScrollView(
+                    child: requestState.img
+                  )
+                );
+              } else if (requestState is RequestImageFromGallery) {
                   return Expanded(
                     child: SingleChildScrollView(
                       child: requestState.img
                     )
                   );
-                } else {
-                  return Container();
-                }
-              },
-            ),
-            ElevatedButton(
-                onPressed: () => stateManager.makeGetRequest(),
-                child: const Text("Get Picture")
-            ),
-            ElevatedButton(
-              child: const Text("Return"),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
+              } else {
+                // TODO: make this a stock image
+                return Container();
+              }
+            },
+          ),
+          ElevatedButton(
+              onPressed: () => stateManager.makeGetRequest(),
+              child: const Text("Get Picture From Magnifier")
+          ),
+          ElevatedButton(
+              onPressed: () => stateManager.showPhotoLibrary(),
+              child: const Text("Get Picture From Device")
+          ),
+          ElevatedButton(
+            child: const Text("Return"),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
       ),
     );
   }
