@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/gallery_manger.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/constants/constants.dart' as constants;
 
 class PhotoPage extends StatelessWidget {
   final stateManager = GalleryManager();
@@ -43,8 +44,12 @@ class PhotoPage extends StatelessWidget {
             },
           ),
           ElevatedButton(
-              onPressed: () => stateManager.makeGetRequest(),
+              onPressed: () => stateManager.makeGetRequest(constants.CF_OPTION_NONE),
               child: const Text("Get Picture From Magnifier")
+          ),
+          ElevatedButton(
+            onPressed: () => stateManager.makeGetRequest(constants.CF_OPTION_BLUE),
+            child: const Text ("Get Color Filtered Picture")
           ),
           ElevatedButton(
               onPressed: () => stateManager.showPhotoLibrary(),

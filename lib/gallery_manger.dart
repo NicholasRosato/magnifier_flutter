@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 import 'package:flutter_app/constants/constants.dart' as constants;
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+import 'package:image_picker_web/image_picker_web.dart'; // NOTE: this only works with web
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -16,9 +16,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 class GalleryManager {
   final resultNotifier = ValueNotifier<RequestState>(RequestInitial());
 
-  Future<void> makeGetRequest() async {
+  Future<void> makeGetRequest(String cfOption) async {
     resultNotifier.value = RequestLoadInProgress();
-    final response = await get(Uri.parse(constants.FLASK_URL + constants.GET_IMAGE));
+    var response = await get(Uri.parse(constants.FLASK_URL + constants.GET_IMAGE + cfOption + "/"));
     _handleResponse(response);
   }
 
@@ -36,7 +36,7 @@ class GalleryManager {
     Image? image;
 
     if (kIsWeb) {
-      image = (await ImagePickerWeb.getImage(outputType: ImageType.widget)) as Image?;
+      image = (await ImagePickerWeb.getImage(outputType: ImageType.widget)) as Image?; // NOTE: this only works with web
     } else {
       XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
       image = Image.file(File(file!.path));
